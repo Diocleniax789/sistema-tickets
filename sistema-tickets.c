@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
+#include <stdlib.h>
 
 struct tickCol{
     char incid[200];
@@ -38,4 +39,33 @@ int main(){
     printf("\n El modulo de mayor ocurrencia es: %s y tiene %i incidencias",mayor_mod,ocurrencias_del_modulo);
 
     return 0;
+}
+
+void carga_ticket(struct tickCol *tickets, int *tickets_cargados){
+    int i;
+    static char cuerpo_mail[200];
+    char modulo[15];
+
+    printf("\n - CARGA DE TICKETS - \n");
+    for(i = 0; i < *tickets_cargados; i++){
+        printf("\n + Escriba el cuerpo: ");
+        fgets(cuerpo_mail,sizeof(cuerpo_mail),stdin);
+        cuerpo_mail[strcspn(cuerpo_mail,"\n")] = '\0';
+        modulo = identifica_modulo(cuerpo_mail);
+        if(strcmp(modulo,"Hotel") == 0){
+            strcpy(tickets[*tickets_cargados].incid,cuerpo_mail);
+            strcpy(tickets[*tickets_cargados].modulo,modulo);
+            (*tickets_cargados)++;
+        } else if(strcpy(modulo,"Vuelo") == 0){
+            strcpy(tickets[*tickets_cargados].incid,cuerpo_mail);
+            strcpy(tickets[*tickets_cargados].modulo,modulo);
+            (*tickets_cargados)++;
+        } else{
+            strcpy(tickets[*tickets_cargados].incid,cuerpo_mail);
+            strcpy(tickets[*tickets_cargados].modulo,modulo);
+            (*tickets_cargados)++;
+        }
+    }
+
+    printf("\n *** Carga finalizada * \n");
 }
