@@ -46,6 +46,7 @@ void carga_ticket(struct tickCol *tickets, int *tickets_cargados){
     static char cuerpo_mail[200];
     char modulo[15];
 
+    printf("\n =======================");
     printf("\n - CARGA DE TICKETS - \n");
     for(i = 0; i < *tickets_cargados; i++){
         printf("\n + Escriba el cuerpo: ");
