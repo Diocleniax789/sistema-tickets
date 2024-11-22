@@ -75,3 +75,30 @@ void carga_ticket(struct tickCol *tickets, int *tickets_cargados){
 
     printf("\n *** Carga finalizada * \n");
 }
+
+
+char * identifica_modulo(char *cuerpo_mail){
+    static mensaje[20];
+    int detectar_modulo,i;
+    char copia_cuerpo_mail[200], delim[] = " ", *modulo;
+
+    modulo = strtok(copia_cuerpo_mail,delim);
+
+    strcpy(copia_cuerpo_mail,cuerpo_mail);
+
+    while(modulo != NULL && delim[] != " " ){
+        strcpy(mensaje,modulo);
+        modulo = strtok(NULL,delim);
+    }
+
+    if(strcmp(modulo,"Modulo") == 0){
+        return mensaje;
+    } else if(strcmp(modulo,"Vuelo") == 0){
+        return mensaje;
+    } else if(strcmp(modulo,"Hotel")){
+        return mensaje;
+    } else{
+        strcpy(mensaje,"***");
+        return mensaje;
+    }
+}
