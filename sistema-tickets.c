@@ -42,16 +42,21 @@ int main(){
 }
 
 void carga_ticket(struct tickCol *tickets, int *tickets_cargados){
-    int i;
+    int i,j = 0;
     static char cuerpo_mail[200];
-    char modulo[15];
+    char modulo[15],caracter;
 
     printf("\n =======================");
     printf("\n - CARGA DE TICKETS - \n");
     for(i = 0; i < *tickets_cargados; i++){
         printf("\n + Escriba el cuerpo: ");
-        fgets(cuerpo_mail,sizeof(cuerpo_mail),stdin);
-        cuerpo_mail[strcspn(cuerpo_mail,"\n")] = '\0';
+        while((caracter = getchar()) != EOF && j < 200){
+            cuerpo_mail[j] = caracter;
+            j++;
+        }
+
+        cuerpo_mail[j] = '\0';
+
         modulo = identifica_modulo(cuerpo_mail);
         if(strcmp(modulo,"Hotel") == 0){
             strcpy(tickets[*tickets_cargados].incid,cuerpo_mail);
