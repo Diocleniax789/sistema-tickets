@@ -42,20 +42,20 @@ int main(){
 }
 
 void carga_ticket(struct tickCol *tickets, int *tickets_cargados){
-    int i,j = 0;
+    int j = 0;
     static char cuerpo_mail[200];
-    static char modulo;
+    static char *modulo;
     char caracter;
 
-    printf("\n =======================");
-    printf("\n - CARGA DE TICKETS - \n");
-    for(i = 0; i < *tickets_cargados; i++){
-        printf("\n + Escriba el cuerpo: ");
+        system("cls");
+        printf("\n =======================");
+        printf("\n - CARGA DE TICKETS - \n");
+        printf("\n + Escriba el cuerpo: \n");
+        printf("   -----------------\n");
         while((caracter = getchar()) != EOF && j < 200){
             cuerpo_mail[j] = caracter;
             j++;
         }
-
         cuerpo_mail[j] = '\0';
 
         modulo = identifica_modulo(cuerpo_mail);
@@ -72,35 +72,33 @@ void carga_ticket(struct tickCol *tickets, int *tickets_cargados){
             strcpy(tickets[*tickets_cargados].modulo,modulo);
             (*tickets_cargados)++;
         }
-    }
 
-    printf("\n *** Carga finalizada * \n");
+    printf("\n *** Carga finalizada *** \n");
 }
 
 
 char * identifica_modulo(char *cuerpo_mail){
-    static char mensaje[20];
-    int detectar_modulo,i;
-    char copia_cuerpo_mail[200], delim[] = " ", *modulo;
-
-    modulo = strtok(copia_cuerpo_mail,delim);
+    static char modulo[15];
+    int detectar_modulo,i,j;
+    char copia_cuerpo_mail[200];
 
     strcpy(copia_cuerpo_mail,cuerpo_mail);
 
-    while(modulo != NULL && delim != " " ){
-        strcpy(mensaje,modulo);
-        modulo = strtok(NULL,delim);
+    j = 0;
+    for(i = 0; i < 200 && j < 15; i++){
+        if(copia_cuerpo_mail[i] != '\n'){
+            modulo[j] = copia_cuerpo_mail[i];
+            j++;
+        }else{
+            break;
+        }
     }
 
-    if(strcmp(modulo,"Modulo") == 0){
-        return mensaje;
-    } else if(strcmp(modulo,"Vuelo") == 0){
-        return mensaje;
-    } else if(strcmp(modulo,"Hotel")){
-        return mensaje;
+    if(strcmp(modulo,"Hotel") == 0 || strcmp(modulo,"Vuelo") == 0 || strcmp(modulo,"Paquete") == 0){
+        return modulo;
     } else{
-        strcpy(mensaje,"***");
-        return mensaje;
+        strcpy(modulo,"***");
+        return modulo;
     }
 }
 
