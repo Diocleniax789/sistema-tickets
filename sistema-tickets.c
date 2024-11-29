@@ -116,8 +116,10 @@ char * mayor_modulo(struct tickCol *tickets, int tickets_cargados, int *ocurrenc
             ocurrencia_hotel++;
         } else if(strcmp(tickets[i].modulo,"Vuelo") == 0){
             ocurrencia_vuelo++;
-        } else{
+        } else if(strcmp(tickets[i].modulo,"Paquete") == 0){
             ocurrencia_paquete++;
+        } else{
+            continue;
         }
     }
 
