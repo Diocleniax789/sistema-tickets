@@ -20,7 +20,7 @@ int main(){
     int tickets_cargados = 0, ocurrencias_del_modulo = 0;
 
     do{
-
+        fflush(stdin);
         carga_ticket(tickets,&tickets_cargados);
 
         do{
@@ -58,10 +58,11 @@ void carga_ticket(struct tickCol *tickets, int *tickets_cargados){
             cuerpo_mail[j] = caracter;
             j++;
         }
+
         cuerpo_mail[j] = '\0';
 
         modulo = identifica_modulo(cuerpo_mail);
-        printf("\n MODULOOOOOO: %s",modulo);
+
 
             if(strcmp(modulo,"Hotel") == 0){
                 strcpy(tickets[*tickets_cargados].incid,cuerpo_mail);
@@ -79,29 +80,21 @@ void carga_ticket(struct tickCol *tickets, int *tickets_cargados){
 }
 
 
-char *identifica_modulo(char *cuerpo_mail) {
+
+char * identifica_modulo(char *cuerpo_mail) {
     static char mensaje[15];
     int i, j = 0;
-    char copia_cuerpo_mail[200];
-    char modulo[15];
+    char modulo[15] = {0};
 
-    printf("\n RECIBIDO: %s",cuerpo_mail);
-
-    strcpy(copia_cuerpo_mail, cuerpo_mail);
-
-    printf("\n COPIA: %s",copia_cuerpo_mail);
-
-    for (i = 0; i < strlen(copia_cuerpo_mail); i++) {
-        if (copia_cuerpo_mail[i] != '\n') {
-            modulo[j] = copia_cuerpo_mail[i];
+    for (i = 0; i < strlen(cuerpo_mail) && j < 15; i++) {
+        if (cuerpo_mail[i] != ':') {
+            modulo[j] = cuerpo_mail[i];
             j++;
         } else {
             break;
         }
     }
     modulo[j] = '\0';
-
-    printf("\n MODULO: %s",modulo);
 
 
     if (strcmp(modulo, "Hotel") == 0 || strcmp(modulo, "Vuelo") == 0 || strcmp(modulo, "Paquete") == 0) {
@@ -110,9 +103,9 @@ char *identifica_modulo(char *cuerpo_mail) {
         strcpy(mensaje, "***");
     }
 
-    printf("\n SDasdasd: %s",mensaje);
     return mensaje;
 }
+
 
 
 char * mayor_modulo(struct tickCol *tickets, int tickets_cargados, int *ocurrencias_del_modulo){
